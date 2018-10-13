@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ClubIt
+namespace ClubItSSC
 {
     class User
     {
+
     }
 }

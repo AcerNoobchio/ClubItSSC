@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ClubIt
+namespace ClubItSSC
 {
-    class UserType
+
+    public enum UserType
     {
-    }
+        SuperAdmin,
+        ClubAdmin,
+        StudentUser
+    };
+
 }
