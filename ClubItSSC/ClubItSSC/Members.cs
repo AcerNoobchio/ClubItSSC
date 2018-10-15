@@ -8,16 +8,19 @@ namespace ClubItSSC
     {
         private List<Member> MemberList;
 
+        #region Constructors
         public Members()
         {
-
+            MemberList = new List<Member>();
         }
 
         public Members(Members MembersIn)
         {
             this.MemberList = MembersIn.CopyMembers();
         }
+        #endregion
 
+        #region Setters and Getters
         public void setMemberList(List<Member> MembersIn)
         {
 
@@ -27,6 +30,8 @@ namespace ClubItSSC
         {
             return this.MemberList;
         }
+
+        #endregion
 
         /// <summary>
         /// Creates a deep copy of the members list in the Members container class
@@ -41,5 +46,5 @@ namespace ClubItSSC
             }
             return tempMembers;
         }//end CopyMemberList(List<Member>)
-    }
+    }//end Members
 }

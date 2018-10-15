@@ -8,6 +8,7 @@ namespace ClubItSSC
     {
         private List<Club> SelectedClubs;
 
+        #region Constructors
         public Clubs()
         {
             SelectedClubs = new List<Club>();
@@ -17,6 +18,17 @@ namespace ClubItSSC
         {
             this.SelectedClubs = ClubsIn.CopyClubs();
         }
+
+        #endregion
+
+        #region
+
+        public List<Club> GetClubs()
+        {
+            return this.SelectedClubs;
+        }//end GetClubs()
+
+        #endregion
 
         /// <summary>
         /// Makes a deep copy  of the Selected Clubs attribute
@@ -31,5 +43,5 @@ namespace ClubItSSC
             }
             return tempClub;
         }
-    }
+    }//end Clubs
 }

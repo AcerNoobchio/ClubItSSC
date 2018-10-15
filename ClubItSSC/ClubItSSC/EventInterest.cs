@@ -4,7 +4,15 @@ using System.Text;
 
 namespace ClubItSSC
 {
-    class EventInterest
+    /// <summary>
+    /// Enum to sort and track interest in events
+    /// </summary>
+    enum EventInterest
     {
-    }
+        Interested,
+        NotInterested,
+        Going,
+        NotGoing,
+        MaybeGoing
+    }//end EventInterest
 }
