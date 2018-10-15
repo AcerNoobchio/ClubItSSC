@@ -21,12 +21,12 @@ namespace ClubItSSC
         #endregion
 
         #region Setters and Getters
-        public void setMemberList(List<Member> MembersIn)
+        public void SetMemberList(List<Member> MembersIn)
         {
 
         }
 
-        public List<Member> getMemberList()
+        public List<Member> GetMemberList()
         {
             return this.MemberList;
         }

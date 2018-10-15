@@ -21,7 +21,7 @@ namespace ClubItSSC
 
         #endregion
 
-        #region
+        #region Setters and Getters
 
         public List<Club> GetClubs()
         {
