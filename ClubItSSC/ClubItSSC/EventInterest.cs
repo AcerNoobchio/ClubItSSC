@@ -7,7 +7,7 @@ namespace ClubItSSC
     /// <summary>
     /// Enum to sort and track interest in events
     /// </summary>
-    enum EventInterest
+    public enum EventInterest
     {
         Interested,
         NotInterested,

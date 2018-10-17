@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClubItSSC
 {
-    class Member
+    public class Member
     {
         private String Name;
         private String ENumber;

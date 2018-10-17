@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClubItSSC
 {
-    class Clubs
+    public class Clubs
     {
         private List<Club> SelectedClubs;
 

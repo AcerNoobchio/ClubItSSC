@@ -7,7 +7,7 @@ namespace ClubItSSC
     /// <summary>
     /// Collection class for Interests, contains the methods used to organize the User Interest List
     /// </summary>
-    class UserInterests
+    public class UserInterests
     {
         List<UserInterest> Interests;
 

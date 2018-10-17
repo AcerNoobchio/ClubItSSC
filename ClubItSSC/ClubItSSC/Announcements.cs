@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClubItSSC
 {
-    class Announcements
+    public class Announcements
     {
         private List<Announcement> AnnouncementList;
 

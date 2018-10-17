@@ -7,7 +7,7 @@ namespace ClubItSSC
     /// <summary>
     /// I am likely going to create some inheritance relationship (UserEvent, OfficalEvent) here, I'm not sure yet.
     /// </summary>
-    class Event
+    public class Event
     {
         private DateTime Time;      //The time at which the event will take place, will probably replace with some other datatype
         private String Location;    //The location at which the event will take place, 

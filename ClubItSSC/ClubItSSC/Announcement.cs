@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClubItSSC
 {
-    class Announcement
+    public class Announcement
     {
         String Headline;
         String Text;

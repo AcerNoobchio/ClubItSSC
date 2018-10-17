@@ -7,7 +7,7 @@ namespace ClubItSSC
     /// <summary>
     /// This is the system which will manage all user interactions with the club - this is also where I think most of the database stuff will happen, though Im not sure
     /// </summary>
-    class Manage
+    public class Manage
     {
         private Member CurrentUser;     //The user that is currently logged in
         private Members AllUsers;       //The List of all members, should be populated by the database
