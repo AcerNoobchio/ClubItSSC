@@ -122,5 +122,11 @@ namespace ClubItSSC
         }
         #endregion
 
+        public override string ToString()
+        {
+            return "Name: " + Name + " Enumber: " + Description + " Activation Status: " + Active + " Member List: " +MemberList
+                +"President: " + President+ " AnnouncementHistory: " + AnnounceHistory + " Events: " + EventList;
+        }
+
     }//end Club
 }

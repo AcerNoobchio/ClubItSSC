@@ -20,13 +20,15 @@ namespace ClubItSSC
             CurrentUser = new Member();
             SelectedClubs = new Clubs();
             AllClubs = new Clubs();         //Maybe replace with reading from the database, Im not sure yet
+            AllUsers = new Members();
         }//end Manage()
 
-        public Manage(Member CurrentUserIn, Clubs SelectedClubsIn, Clubs AllClubsIn)
+        public Manage(Member CurrentUserIn, Clubs SelectedClubsIn, Clubs AllClubsIn, Members AllUsersIn)
         {
             this.CurrentUser = new Member(CurrentUserIn);
             this.SelectedClubs = new Clubs(SelectedClubsIn);
             this.AllClubs = new Clubs(AllClubsIn);
+            this.AllUsers = new Members(AllUsersIn);
         }//end Manage(Member, Clubs, Clubs)
 
         public Manage(Manage ManageIn)
@@ -34,6 +36,7 @@ namespace ClubItSSC
             this.CurrentUser = new Member(ManageIn.CurrentUser);
             this.SelectedClubs = new Clubs(ManageIn.SelectedClubs);
             this.AllClubs = new Clubs(ManageIn.AllClubs);
+            this.AllUsers = new Members(ManageIn.AllUsers);
         }//end Manage(Manage)
         #endregion
 
@@ -128,7 +131,7 @@ namespace ClubItSSC
         public int CreateUser(Member UserIn)
         {
             int iReturnCode = 0;
-            if (CurrentUser.GetType().Equals(UserType.SuperAdmin))
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllUsers.GetMemberList().Add(new Member(UserIn));
                 //Sort Method placeholder
@@ -152,7 +155,7 @@ namespace ClubItSSC
         public int EditUser(Member UserIn, int Index)
         {
             int iReturnCode = 0;
-            if (CurrentUser.GetType().Equals(UserType.SuperAdmin))
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllUsers.GetMemberList()[Index] = new Member(UserIn);
                 //Sort the All Users List
@@ -175,7 +178,7 @@ namespace ClubItSSC
         {
             int iReturnCode = 0;
 
-            if (CurrentUser.GetType().Equals(UserType.SuperAdmin))
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllUsers.GetMemberList().RemoveAt(Index);
                 //Sorting is likely not necessary here
@@ -202,7 +205,7 @@ namespace ClubItSSC
         public int CreateClub(Club ClubIn)
         {
             int iReturnCode = 0;
-            if(CurrentUser.GetType().Equals(UserType.SuperAdmin))
+            if(CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllClubs.GetClubs().Add(new Club(ClubIn));
                 //Sort Method placeholder
@@ -226,7 +229,7 @@ namespace ClubItSSC
         public int EditClub(Club ClubIn, int Index)
         {
             int iReturnCode = 0;
-            if (CurrentUser.GetType().Equals(UserType.SuperAdmin))
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllClubs.GetClubs()[Index] = new Club(ClubIn);
                 //Sort the All Clubs
@@ -249,7 +252,7 @@ namespace ClubItSSC
         {
             int iReturnCode = 0;
 
-            if(CurrentUser.GetType().Equals(UserType.SuperAdmin))
+            if(CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllClubs.GetClubs().RemoveAt(Index);
                 //Sorting is likely not necessary here

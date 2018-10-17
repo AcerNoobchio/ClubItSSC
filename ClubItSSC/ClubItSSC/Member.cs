@@ -15,8 +15,8 @@ namespace ClubItSSC
         public Member()
         {
             Name = "";
-            ENumber = "E00000000";      //Probably gonna get rid of it
-            Interests = null;           //Replace this later, bad practice
+            ENumber = "E00000000";                      //Probably gonna get rid of it
+            Interests = new UserInterests();           //Replace this later, bad practice
             Type = UserType.StudentUser;
         }//end Member()
 
@@ -45,40 +45,50 @@ namespace ClubItSSC
         #endregion
 
         #region setters and getters
-        public void setName(String NameIn)
+        public void GetName(String NameIn)
         {
             this.Name = NameIn;
         }
 
-        public String getName()
+        public String GetName()
         {
             return this.Name;
         }
 
-        public void setENumber(String ENumberIn)
+        public void GetENumber(String ENumberIn)
         {
             this.ENumber = ENumberIn;
         }
 
-        public String getENumber()
+        public String GetENumber()
         {
             return this.ENumber;
         }
 
-        public void setInterests(UserInterests InterestsIn)
+        public void GetInterests(UserInterests InterestsIn)
         {
             this.Interests = InterestsIn;
         }
 
-        public UserInterests getUserInterests()
+        public UserInterests GetUserInterests()
         {
             return this.Interests;
         }
 
-        public void setType(UserType TypeIn)
+        public void SetUserType(UserType TypeIn)
         {
             this.Type = TypeIn;
         }
+
+        public UserType GetUserType()
+        {
+            return this.Type;
+        }
         #endregion
+
+        public override string ToString()
+        {
+            return "Name: " + Name + " Enumber: " + ENumber + " Interests: " + Interests + " User Type: " + Type;
+        }
     }//end Member
 }
