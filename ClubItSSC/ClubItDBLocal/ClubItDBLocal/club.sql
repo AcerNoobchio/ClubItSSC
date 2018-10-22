@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Table1]
+﻿CREATE TABLE [dbo].club
 (
 	club_id VARCHAR(5) NOT NULL,
 	club_name VARCHAR(50) NOT NULL,
