@@ -13,12 +13,13 @@ namespace ClubItSSCConsole
     {
         public static void Main(string[] args)
         {
+
             Manage wellok = new Manage();   //Nothing in the lists yet
 
             Member UserToAdd = new Member("Jacob", "Eblahblah", new UserInterests(), UserType.SuperAdmin);
             wellok.SetCurrentUser(UserToAdd);   //Basically the login
             wellok.CreateUser(UserToAdd);
-            
+
             //Test Users
             Member UserToAdd1 = new Member("Rachel", "Eblahblah", new UserInterests(), UserType.SuperAdmin);
             Member UserToAdd2 = new Member("Myra", "Eblahblah", new UserInterests(), UserType.ClubAdmin);
