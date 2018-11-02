@@ -48,9 +48,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ClubItSSC">
-      <HintPath>..\ClubItSSC\obj\Debug\netstandard2.0\ClubItSSC.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -75,6 +72,10 @@
     <ProjectReference Include="..\ClubItSSC.Android\ClubItSSC.Android.csproj">
       <Project>{0423be02-8fdd-4220-87a3-0a257fa4a790}</Project>
       <Name>ClubItSSC.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClubItSSC\ClubItSSC.csproj">
+      <Project>{d0458318-ff63-440d-bcc0-e2db407c2344}</Project>
+      <Name>ClubItSSC</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
