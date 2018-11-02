@@ -16,16 +16,16 @@ namespace ClubItSSCConsole
 
             Manage wellok = new Manage();   //Nothing in the lists yet
 
-            Member UserToAdd = new Member("Jacob", "Eblahblah", new UserInterests(), UserType.SuperAdmin);
+            Member UserToAdd = new Member("Jacob", "Eblahblah", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
             wellok.SetCurrentUser(UserToAdd);   //Basically the login
             wellok.CreateUser(UserToAdd);
 
             //Test Users
-            Member UserToAdd1 = new Member("Rachel", "Eblahblah", new UserInterests(), UserType.SuperAdmin);
-            Member UserToAdd2 = new Member("Myra", "Eblahblah", new UserInterests(), UserType.ClubAdmin);
-            Member UserToAdd3 = new Member("Micaela", "Eblahblah", new UserInterests(), UserType.ClubAdmin);
-            Member UserToAdd4 = new Member("Mary", "Eblahblah", new UserInterests(), UserType.SuperAdmin);
-            Member UserToAdd5 = new Member("Brian", "Eblahblah", new UserInterests(), UserType.StudentUser);
+            Member UserToAdd1 = new Member("Rachel", "Eblahblah", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd2 = new Member("Myra", "Eblahblah", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd3 = new Member("Micaela", "Eblahblah", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd4 = new Member("Mary", "Eblahblah", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd5 = new Member("Brian", "Eblahblah", new UserInterests(), UserType.StudentUser, EventInterest.NotGoing, new Events());
 
             wellok.CreateUser(UserToAdd1);
             wellok.CreateUser(UserToAdd2);
@@ -33,7 +33,7 @@ namespace ClubItSSCConsole
             wellok.CreateUser(UserToAdd4);
             wellok.CreateUser(UserToAdd5);
 
-            Member Update = new Member("Brian", "E0090011", new UserInterests(), UserType.SuperAdmin);
+            Member Update = new Member("Brian", "E0090011", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
 
             wellok.EditUser(Update, 5);
 

@@ -134,7 +134,7 @@ namespace ClubItSSC
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllUsers.GetMemberList().Add(new Member(UserIn));
-                //Sort Method placeholder
+                AllUsers.SortMembers();     //Keep the list nice and tidy
                 //This might be a good place to update the database
             }
             else
@@ -158,7 +158,7 @@ namespace ClubItSSC
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllUsers.GetMemberList()[Index] = new Member(UserIn);
-                //Sort the All Users List
+                AllUsers.SortMembers();         //Keep the list nice and tidy
                 //Might be a good place for a database update
             }
             else
@@ -208,7 +208,7 @@ namespace ClubItSSC
             if(CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllClubs.GetClubs().Add(new Club(ClubIn));
-                //Sort Method placeholder
+                AllClubs.SortClubs();
                 //This might be a good place to update the database
             }
             else
@@ -232,7 +232,7 @@ namespace ClubItSSC
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllClubs.GetClubs()[Index] = new Club(ClubIn);
-                //Sort the All Clubs
+                AllClubs.SortClubs();
                 //Might be a good place for a database update
             }
             else
@@ -267,6 +267,107 @@ namespace ClubItSSC
         }//end RemoveClub(int)
         #endregion
 
+        /// <summary>
+        /// Allows a club admin or super admin to create an event
+        /// </summary>
+        /// <param name="EventIn"> the Event </param>
+        /// <param name="ClubIndex"> The position of the club in the list of all clubs </param>
+        /// <returns> A 1 if the user has insufficient privileges, a 0 otherwise </returns>
+        public int CreateEvent(Event EventIn, int ClubIndex)
+        {
+            int iReturnCode = 0;
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin) || CurrentUser.GetUserType().Equals(UserType.ClubAdmin))
+            {
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().Add(EventIn);
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().Sort();                                           //Sort the club's event list for tidiness
+                //This might be a good place to update the database
+            }
+            else
+            {
+                iReturnCode = 1; //Indicates insufficient privileges
+            }
+
+            return iReturnCode;
+        }//end CreateEvent(Event, int)
+
+        /// <summary>
+        /// Allows a SuperAdmin or Club admin to edit an event
+        /// </summary>
+        /// <param name="EventIn"> The new event whose parameters will replace the old event </param>
+        /// <param name="ClubIndex"> The index of the club being edited </param>
+        /// <param name="EventIndex"> The index of the event being edited </param>
+        /// <returns> A Return code that indicates the status of the operation </returns>
+        public int EditEvent(Event EventIn, int ClubIndex, int EventIndex)
+        {
+            int iReturnCode = 0;
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin) || CurrentUser.GetUserType().Equals(UserType.ClubAdmin))
+            {
+                Members MembersToUpdate = new Members();
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex] = new Event(EventIn);
+                MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
+                int iMemberIndex = 0;
+                int iEventIndex = 0;
+                for(int iCount = 0; iCount < MembersToUpdate.GetMemberList().Count; iCount++)                               //For each member interested in the event
+                {
+                    iMemberIndex = AllUsers.SearchMembers(MembersToUpdate.GetMemberList()[iCount]);                         //Find the location of the member
+                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().SortEvents();                                        //Make the search more efficient, will probably replace this later
+                    iEventIndex = AllUsers.GetMemberList()[iMemberIndex].GetEvents().SearchEvents(EventIn);                 //Find the location of the event in that user's Event list
+                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().GetEventList()[iEventIndex] = new Event(EventIn);    //Replace the user's copy of the event
+                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().SortEvents();                                        //Sort again because the title may have changed. 
+                }
+
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().Sort();                                           //Sort the club's event list for tidiness
+
+                //This might be a good place to update the database
+                //Need to update all user's Calendars
+            }
+            else
+            {
+                iReturnCode = 1; //Indicates insufficient privileges
+            }
+
+            return iReturnCode;
+        }//end EditEvent(Event, int, int)
+
+        /// <summary>
+        /// Allows a SuperAdmin or Club admin to edit a club
+        /// </summary>
+        /// <param name="EventIn"></param>
+        /// <param name="ClubIndex"></param>
+        /// <param name="EventIndex"></param>
+        /// <returns></returns>
+        public int RemoveEvent(Event EventIn, int ClubIndex, int EventIndex)
+        {
+            int iReturnCode = 0;
+            if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin) || CurrentUser.GetUserType().Equals(UserType.ClubAdmin))
+            {
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().RemoveAt(EventIndex);
+
+
+                Members MembersToUpdate = new Members();
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().RemoveAt(EventIndex);
+                MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
+                int iMemberIndex = 0;
+                int iEventIndex = 0;
+                for (int iCount = 0; iCount < MembersToUpdate.GetMemberList().Count; iCount++)                               //For each member interested in the event
+                {
+                    iMemberIndex = AllUsers.SearchMembers(MembersToUpdate.GetMemberList()[iCount]);                         //Find the location of the member
+                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().SortEvents();                                        //Make the search more efficient, will probably replace this later
+                    iEventIndex = AllUsers.GetMemberList()[iMemberIndex].GetEvents().SearchEvents(EventIn);                 //Find the location of the event in that user's Event list
+                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().GetEventList().RemoveAt(iEventIndex);                //Replace the user's copy of the event
+                }
+
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().Sort();                                           //Sort the club's event list for tidiness
+                //This might be a good place to update the database
+                //Need to update all user's Calendars
+            }
+            else
+            {
+                iReturnCode = 1; //Indicates insufficient privileges
+            }
+
+            return iReturnCode;
+        }//end EditEvent(Event, int, int)
 
         #region Student-Club Interactions
 

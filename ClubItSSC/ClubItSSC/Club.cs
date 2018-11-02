@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ClubItSSC
 {
-    public class Club
+    public class Club : IComparable<Club>
     {
         private String Name;
         private String Description;
@@ -12,6 +12,17 @@ namespace ClubItSSC
         private Members MemberList;
         private Member President;
         private Events EventList;
+        private Announcements AnnounceHistory;
+
+        /// <summary>
+        /// Compare two events based on the club title
+        /// </summary>
+        /// <param name="ClubIn"> The club to be compared to the calling club </param>
+        /// <returns> a value gt 0 if the event is higher and lt 0 if lower </returns>
+        public int CompareTo(Club ClubIn)
+        {
+            return this.Name.CompareTo(ClubIn.Name);
+        }//end CompareTo(Club)
 
         #region Constructors
         public Club()
@@ -115,9 +126,14 @@ namespace ClubItSSC
             this.AnnounceHistory = new Announcements(AnnouncementsIn);
         }
 
-        public Announcements getAnnouncements()
+        public Announcements GetAnnouncements()
         {
             return this.AnnounceHistory;
+        }
+
+        public Events GetEvents()
+        {
+            return this.EventList;
         }
         #endregion
 

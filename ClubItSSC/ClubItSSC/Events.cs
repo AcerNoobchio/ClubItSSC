@@ -41,5 +41,23 @@ namespace ClubItSSC
             }
             return tempEvents;
         }//end CopyMemberList(List<Event>)
+
+        /// <summary>
+        /// Searches for a specific event, here pretty much for convienience
+        /// </summary>
+        /// <param name="EventIn"> The Event Object to look for </param>
+        /// <returns> The index of the found event or a negative number if search failed </returns>
+        public int SearchEvents(Event EventIn)
+        {
+            return this.EventList.BinarySearch(EventIn);
+        }//end SearchEvents(Event)
+
+        /// <summary>
+        /// Performs a quicksort O(n lg n), on the events
+        /// </summary>
+        public void SortEvents()
+        {
+            this.EventList.Sort();
+        }//end SortEvents()
     }//end Events
 }
