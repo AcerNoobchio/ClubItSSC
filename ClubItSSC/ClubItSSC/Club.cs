@@ -11,7 +11,6 @@ namespace ClubItSSC
         private Boolean Active;
         private Members MemberList;
         private Member President;
-        private Announcements AnnounceHistory;
         private Events EventList;
 
         #region Constructors
