@@ -20,7 +20,7 @@ namespace ClubItSSC
         /// <returns> greater than 0 if this member is "greater" than the other less than 0 if this member is les than </returns>
         public int CompareTo(Member MemberIn)
         {
-            return this.Name.CompareTo(MemberIn);
+            return this.Name.CompareTo(MemberIn.Name);
         }//end CompareTo(Member)
 
         #region constructors
@@ -31,6 +31,7 @@ namespace ClubItSSC
             Interests = new UserInterests();           //Replace this later, bad practice
             Type = UserType.StudentUser;
             EventInterest = EventInterest.NotGoing;
+            EventList = new Events();
         }//end Member()
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace ClubItSSC
             this.Interests = new UserInterests(MemberIn.Interests);
             Type = MemberIn.Type;
             this.EventInterest = MemberIn.EventInterest;
-
+            this.EventList = new Events(MemberIn.GetEvents());
             
         }//end Member(Member)
         #endregion
@@ -127,7 +128,7 @@ namespace ClubItSSC
 
         public override string ToString()
         {
-            return "Name: " + Name + " Enumber: " + ENumber + " Interests: " + Interests + " User Type: " + Type + "Event List: " + this.EventList;
+            return "Member Name: " + Name + " Enumber: " + ENumber + " Interests: " + Interests + " User Type: " + Type + "Event List: " + this.EventList;
         }
     }//end Member
 }

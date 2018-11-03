@@ -59,5 +59,17 @@ namespace ClubItSSC
         {
             this.EventList.Sort();
         }//end SortEvents()
+
+        public override string ToString()
+        {
+            String str = "";
+            for (int iCount = 0; iCount < this.EventList.Count; iCount++)
+            {
+                str += this.EventList[iCount];
+                str += "\n\r";
+            }
+            return str;
+        }//end ToString()
+
     }//end Events
 }

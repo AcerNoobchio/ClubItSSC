@@ -33,16 +33,27 @@ namespace ClubItSSCConsole
             wellok.CreateUser(UserToAdd4);
             wellok.CreateUser(UserToAdd5);
 
+            /*
             Member Update = new Member("Brian", "E0090011", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
 
             wellok.EditUser(Update, 5);
 
             wellok.RemoveUser(2);
+           
 
             for (int iCount = 0; iCount < wellok.GetAllUsers().GetMemberList().Count; iCount++)
             {
                 Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iCount]);
             }
+            */
+            //Test Events, simulate typed in fields in the gui 
+
+            Event MovieDay = new Event("MovieDay", "We're watching a polish movie", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members());
+            Event Quilt = new Event("Yarn Baskets", "We're weaving baskets for the quilt club", DateTime.Now, "Culp Center Rm 301", true, "No Image", "No URL", new Members());
+            Event Gym = new Event("GYYYYM", "BRING YOUR PROTEAN SHAKES WERE GETTIN SWOLLLLLL", DateTime.Now, "CPA", true, "No Image", "No URL", new Members());
+            Event Caps = new Event("Caps Lock Debate", "The last event brought up concerns about proper typing", DateTime.Now, "Gilbreath Lobby", true, "No Image", "No URL", new Members());
+            Event Grammer = new Event("Grammer Help Me", "Polish Grammar is hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members());
+            Event Vocab = new Event("Vocab Building", "Come to build some Polish Vocab!", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members());
 
             //Test Clubs
 
@@ -60,6 +71,36 @@ namespace ClubItSSCConsole
             wellok.CreateClub(ClubToAdd5);
             wellok.CreateClub(ClubToAdd6);
 
+            wellok.CreateEvent(MovieDay, 2);
+            wellok.CreateEvent(Quilt, 1);
+            wellok.CreateEvent(Gym, 5);
+            wellok.CreateEvent(Caps, 5);
+            wellok.CreateEvent(Grammer, 2);
+            wellok.CreateEvent(Vocab, 2);
+
+            wellok.AddEvent(2, 0);          // Grammar
+            wellok.AddEvent(2, 1);          // Movie
+            wellok.AddEvent(2, 2);          // Vocab
+
+            Event NewGrammer = new Event("Grammer Help Me", "Polish Grammar is not so hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members(Grammer.GetInterest()));
+            //NewGrammer.GetInterest().GetMemberList().Add(wellok.GetCurrentUser());
+
+            // Console.WriteLine(wellok.GetAllClubs());
+
+            //Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+            //int iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
+            //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
+
+            Console.WriteLine(wellok.GetCurrentUser());
+
+            wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
+
+            Console.WriteLine(wellok.GetCurrentUser());
+            //Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+            //iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
+            //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
+
+            /*
             Club Update2 = new Club("Sports", "Go generic team! Fist bump! *gym bro noises*", false, new Members(wellok.GetAllUsers()), new Member(wellok.GetAllUsers().GetMemberList()[3]), new Announcements(), new Events());
 
             wellok.EditClub(Update2, 5);
@@ -74,6 +115,8 @@ namespace ClubItSSCConsole
             }
 
             wellok.Unsubscribe(1);
+
+            */
 
             Console.Read();
         }

@@ -8,7 +8,7 @@ namespace ClubItSSC
     /// <summary>
     /// I am likely going to create some inheritance relationship (UserEvent, OfficalEvent) here, I'm not sure yet.
     /// </summary>
-    public class Event : IComparable<Event>
+    public class Event : IComparable<Event>, IEquatable<Event>
     {
         private String Title;
         private String Description;
@@ -26,8 +26,29 @@ namespace ClubItSSC
         /// <returns> a value gt 0 if the event is higher and lt 0 if lower </returns>
         public int CompareTo(Event EventIn)
         {
-            return this.Title.CompareTo(EventIn.Description);
+            return this.Title.CompareTo(EventIn.Title);
         }//end CompareTo(Event)
+
+        bool IEquatable<Event>.Equals(Event other)
+        {
+            return Title == other.Title;
+        }
+
+        public override bool Equals(Object EventIn)
+        {
+            if (EventIn == null)
+            {
+                return base.Equals(EventIn);
+            }
+            if(!(EventIn is Event))
+            {
+                throw new ArgumentException("Parameter is not an Event");
+            }
+            else
+            {
+                return Equals(EventIn as Event);
+            }
+        }
 
         #region Constructors
         public Event()
@@ -43,6 +64,28 @@ namespace ClubItSSC
 
         }//end Event()
 
+        /// <summary>
+        /// Parameterized Constructor for Event
+        /// </summary>
+        /// <param name="TitleIn"> The Title </param>
+        /// <param name="DescIn"> The Description </param>
+        /// <param name="TimeIn"> The Event Time </param>
+        /// <param name="LocationIn"> The Event Location </param>
+        /// <param name="BlnIn"> Whether the club admin has agreed to the terms of service </param>
+        /// <param name="ImgIn"> The file path of an image </param>
+        /// <param name="URLIn"> The url of a related website </param>
+        /// <param name="InterestIn"> The list of members who have added the event to their calendar </param>
+        public Event(String TitleIn, String DescIn, DateTime TimeIn, String LocationIn, Boolean BlnIn, String ImgIn, String URLIn, Members InterestIn)
+        {
+            this.Title = TitleIn;
+            this.Description = DescIn;
+            this.Time = TimeIn;
+            this.Location = LocationIn;
+            this.Agreed = BlnIn;
+            this.ImagePath = ImgIn;
+            this.URL = URLIn;
+            this.Interest = new Members(InterestIn);
+        }//end Event(String, String, DateTime, String, Boolean, String, String, Members)
 
         public Event(Event EventIn)
         {
@@ -56,6 +99,7 @@ namespace ClubItSSC
             this.Interest = new Members(EventIn.GetInterest());
 
         }//end Event(Event)
+
 # endregion
 
         #region Setters and Getters
@@ -130,6 +174,10 @@ namespace ClubItSSC
             return this.URL;
         }
 
+        /// <summary>
+        /// Need to display interest separately or Member and Event's toStrings will call each other infinitely
+        /// </summary>
+        /// <returns> The list of members that are interested in this club </returns>
         public Members GetInterest()
         {
             return this.Interest;
@@ -138,7 +186,8 @@ namespace ClubItSSC
 
         public override String ToString()
         {
-            return  "Title: "+Title+"\n\rDescription: "+Description+"\n\rTime: " + this.Time + "\n\rLocation: " + Location + "\n\rAgreed: " + Agreed + "\n\rImagePath: " + ImagePath + "\n\rURL: " + URL + "\n\rInterested Members: " +Interest;
+            return  "Title: "+Title+"\n\rDescription: "+Description+"\n\rTime: " + this.Time + "\n\rLocation: " + Location + "\n\rAgreed: " + Agreed + "\n\rImagePath: " + ImagePath + "\n\rURL: " + URL;
         }
+
     }//end Event
 }

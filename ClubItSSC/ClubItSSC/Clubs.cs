@@ -62,5 +62,16 @@ namespace ClubItSSC
             this.SelectedClubs.Sort();
         }//end SortClubs()
 
+        public override string ToString()
+        {
+            String str = "";
+            for(int iCount = 0; iCount < this.SelectedClubs.Count; iCount++)
+            {
+                str += this.SelectedClubs[iCount];
+                str += "\n\r";
+            }
+            return str;
+        }//end ToString()
+
     }//end Clubs
 }
