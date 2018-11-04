@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ClubItSSC
 {
+    /// <summary>
+    /// A container class for members
+    /// </summary>
     public class Members
     {
         private List<Member> MemberList;

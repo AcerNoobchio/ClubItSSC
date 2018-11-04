@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ClubItSSC
 {
+    /// <summary>
+    /// The container class for events, contains a single EventList and utility methods
+    /// </summary>
     public class Events
     {
         private List<Event> EventList;

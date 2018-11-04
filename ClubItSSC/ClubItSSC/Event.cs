@@ -29,10 +29,25 @@ namespace ClubItSSC
             return this.Title.CompareTo(EventIn.Title);
         }//end CompareTo(Event)
 
-        bool IEquatable<Event>.Equals(Event other)
+
+        /// <summary>
+        /// Compares two event objects based on time and title
+        /// </summary>
+        /// <param name="other"> The event being compared to the calling event </param>
+        /// <returns> True if equal, false if not </returns>
+        public bool Equals(Event other)
         {
-            return Title == other.Title;
-        }
+            Boolean equals = false;
+            if(Title == other.Title && Time == other.Time)
+            {
+                equals = true;
+            }
+            else
+            {
+                equals = false;
+            }
+            return equals;
+        }//endIEquatable<Event>.Equals(Event)
 
         public override bool Equals(Object EventIn)
         {
@@ -48,6 +63,15 @@ namespace ClubItSSC
             {
                 return Equals(EventIn as Event);
             }
+        }
+
+        /// <summary>
+        /// Returns a hash code based on the title and time of the event
+        /// </summary>
+        /// <returns> The hash code of the Event </returns>
+        public override int GetHashCode()
+        {
+            return this.Title.GetHashCode() + this.Time.GetHashCode();
         }
 
         #region Constructors

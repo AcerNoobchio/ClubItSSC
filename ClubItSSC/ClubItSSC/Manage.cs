@@ -300,12 +300,14 @@ namespace ClubItSSC
             int iReturnCode = 0;
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin) || CurrentUser.GetUserType().Equals(UserType.ClubAdmin))
             {
+                int iMemberIndex = 0;
+                int iEventIndex = 0;
+
                 Members MembersToUpdate = new Members();
                 Event OldEvent = AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex];
                 AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex] = new Event(EventIn);
                 MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
-                int iMemberIndex = 0;
-                int iEventIndex = 0;
+
                 if (MembersToUpdate != null)                                                                                    //It is possible that the event exists but no user is interested
                 {
                     for (int iCount = 0; iCount < MembersToUpdate.GetMemberList().Count; iCount++)                              //For each member interested in the event
@@ -336,32 +338,32 @@ namespace ClubItSSC
         }//end EditEvent(Event, int, int)
 
         /// <summary>
-        /// Allows a SuperAdmin or Club admin to edit a club
+        /// Allows a SuperAdmin or Club admin to delete an event
         /// </summary>
-        /// <param name="EventIn"></param>
-        /// <param name="ClubIndex"></param>
-        /// <param name="EventIndex"></param>
-        /// <returns></returns>
-        public int RemoveEvent(Event EventIn, int ClubIndex, int EventIndex)
+        /// <param name="ClubIndex"> The index of the club to remove the event from </param>
+        /// <param name="EventIndex"> The index of the event in the club's event list </param>
+        /// <returns> A 0 if successful, or a 1 if unsuccessful </returns>
+        public int DeleteEvent(int ClubIndex, int EventIndex)
         {
             int iReturnCode = 0;
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin) || CurrentUser.GetUserType().Equals(UserType.ClubAdmin))
             {
-                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().RemoveAt(EventIndex);
-
-                Members MembersToUpdate = new Members();
-                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().RemoveAt(EventIndex);
-                MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
                 int iMemberIndex = 0;
                 int iEventIndex = 0;
+
+                Event OldEvent = AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex];
+                Members MembersToUpdate = new Members();
+                MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
+                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().RemoveAt(EventIndex);
+
                 for (int iCount = 0; iCount < MembersToUpdate.GetMemberList().Count; iCount++)                              //For each member interested in the event, need to remove Events from users too
                 {
                     iMemberIndex = AllUsers.SearchMembers(MembersToUpdate.GetMemberList()[iCount]);                         //Find the location of the member
                     AllUsers.GetMemberList()[iMemberIndex].GetEvents().SortEvents();                                        //Make the search more efficient, will probably replace this later
-                    iEventIndex = AllUsers.GetMemberList()[iMemberIndex].GetEvents().SearchEvents(EventIn);                 //Find the location of the event in that user's Event list
-                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().GetEventList().RemoveAt(iEventIndex);                //Replace the user's copy of the event
+                    iEventIndex = AllUsers.GetMemberList()[iMemberIndex].GetEvents().SearchEvents(OldEvent);                //Find the location of the event in that user's Event list
+                    AllUsers.GetMemberList()[iMemberIndex].GetEvents().GetEventList().RemoveAt(iEventIndex);                //Remove the user's copy of the event
 
-                    if(MembersToUpdate.GetMemberList()[iCount] == this.CurrentUser)
+                    if(MembersToUpdate.GetMemberList()[iCount].Equals(this.CurrentUser))
                     {
                         SaveUser();
                     }
@@ -485,7 +487,7 @@ namespace ClubItSSC
             int iUserPos = 0;
             iUserPos = this.GetAllUsers().SearchMembers(this.CurrentUser);
             this.AllUsers.GetMemberList()[iUserPos] = new Member(this.CurrentUser);
-        }
+        }//end UpdateUser()
 
         /// <summary>
         /// Saves from the List of all users to the current user
@@ -495,7 +497,7 @@ namespace ClubItSSC
             int iUserPos = 0;
             iUserPos = this.GetAllUsers().SearchMembers(this.CurrentUser);
             this.CurrentUser = new Member(this.GetAllUsers().GetMemberList()[iUserPos]);
-        }
+        }//end SaveUser()
 
     }//end Manage
 }

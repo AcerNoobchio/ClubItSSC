@@ -16,16 +16,16 @@ namespace ClubItSSCConsole
 
             Manage wellok = new Manage();   //Nothing in the lists yet
 
-            Member UserToAdd = new Member("Jacob", "Eblahblah", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd = new Member("Jacob", "hoyosj@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
             wellok.SetCurrentUser(UserToAdd);   //Basically the login
             wellok.CreateUser(UserToAdd);
 
             //Test Users
-            Member UserToAdd1 = new Member("Rachel", "Eblahblah", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd2 = new Member("Myra", "Eblahblah", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd3 = new Member("Micaela", "Eblahblah", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd4 = new Member("Mary", "Eblahblah", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd5 = new Member("Brian", "Eblahblah", new UserInterests(), UserType.StudentUser, EventInterest.NotGoing, new Events());
+            Member UserToAdd1 = new Member("Rachel", "revisr@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd2 = new Member("Myra", "tdm@etsu.edu", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd3 = new Member("Micaela", "tuckerm@etsu.edu", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd4 = new Member("Mary", "snoddym@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd5 = new Member("Brian", "bennettb@etsu.edu", new UserInterests(), UserType.StudentUser, EventInterest.NotGoing, new Events());
 
             wellok.CreateUser(UserToAdd1);
             wellok.CreateUser(UserToAdd2);
@@ -82,21 +82,23 @@ namespace ClubItSSCConsole
             wellok.AddEvent(2, 1);          // Movie
             wellok.AddEvent(2, 2);          // Vocab
 
-            Event NewGrammer = new Event("Grammer Help Me", "Polish Grammar is not so hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members(Grammer.GetInterest()));
+            Event NewGrammer = new Event("Grammer Stuff", "Polish Grammar is not so hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members(Grammer.GetInterest()));
             //NewGrammer.GetInterest().GetMemberList().Add(wellok.GetCurrentUser());
 
             // Console.WriteLine(wellok.GetAllClubs());
 
-            //Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
             //int iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
             //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
 
             Console.WriteLine(wellok.GetCurrentUser());
 
             wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
+            wellok.DeleteEvent(2, 1);
+            //wellok.RemoveEvent(2, 1);
 
             Console.WriteLine(wellok.GetCurrentUser());
-            //Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
             //iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
             //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
 
