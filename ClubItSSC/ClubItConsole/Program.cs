@@ -13,7 +13,6 @@ namespace ClubItSSCConsole
     {
         public static void Main(string[] args)
         {
-
             Manage wellok = new Manage();   //Nothing in the lists yet
 
             Member UserToAdd = new Member("Jacob", "hoyosj@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
@@ -119,7 +118,7 @@ namespace ClubItSSCConsole
             wellok.Unsubscribe(1);
 
             */
-
+            
             Console.Read();
         }
     }

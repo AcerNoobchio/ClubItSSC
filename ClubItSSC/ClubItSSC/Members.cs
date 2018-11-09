@@ -69,6 +69,21 @@ namespace ClubItSSC
             this.MemberList.Sort();
         }//end SortMembers()
 
+        public void Add(Member MemberIn)
+        {
+            this.MemberList.Add(MemberIn);
+        }
+
+        public void Remove(Member MemberIn)
+        {
+            this.MemberList.Remove(MemberIn);
+        }
+
+        public void RemoveAt(int Index)
+        {
+            this.MemberList.RemoveAt(Index);
+        }
+
         public override string ToString()
         {
             String str = "";

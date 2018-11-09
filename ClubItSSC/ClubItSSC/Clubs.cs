@@ -62,6 +62,21 @@ namespace ClubItSSC
             this.SelectedClubs.Sort();
         }//end SortClubs()
 
+        public void Add(Club ClubIn)
+        {
+            this.SelectedClubs.Add(ClubIn);
+        }
+
+        public void Remove(Club ClubIn)
+        {
+            this.SelectedClubs.Remove(ClubIn);
+        }
+
+        public void RemoveAt(int Index)
+        {
+            this.SelectedClubs.RemoveAt(Index);
+        }
+
         public override string ToString()
         {
             String str = "";
