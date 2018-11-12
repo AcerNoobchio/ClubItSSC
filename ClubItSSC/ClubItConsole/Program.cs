@@ -70,18 +70,106 @@ namespace ClubItSSCConsole
             wellok.CreateClub(ClubToAdd5);
             wellok.CreateClub(ClubToAdd6);
 
-            wellok.CreateEvent(MovieDay, 2);
-            wellok.CreateEvent(Quilt, 1);
-            wellok.CreateEvent(Gym, 5);
-            wellok.CreateEvent(Caps, 5);
-            wellok.CreateEvent(Grammer, 2);
-            wellok.CreateEvent(Vocab, 2);
+            //Test permission access
+            int iResult = 0;
 
-            wellok.AddEvent(2, 0);          // Grammar
-            wellok.AddEvent(2, 1);          // Movie
-            wellok.AddEvent(2, 2);          // Vocab
+            wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
+
+            iResult =  wellok.CreateEvent(Quilt, 0);
+            Console.WriteLine("Attempting to create an event as a student user");
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine("Attempting to add an event that doesn't already exist");
+            wellok.GetCurrentUser().SetUserType(UserType.ClubAdmin);
+
+            iResult = wellok.CreateEvent(Quilt, 0); //Try creating quilt again
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0]);
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+            iResult = wellok.CreateEvent(MovieDay, 2);
+            iResult =  wellok.CreateEvent(Gym, 5);
+            iResult =  wellok.CreateEvent(Caps, 5);
+            iResult =  wellok.CreateEvent(Grammer, 2);
+            iResult =  wellok.CreateEvent(Vocab, 2);
+
+            Console.WriteLine("Attempting to add an event that doesn't already exist");
+
+            iResult =  wellok.AddEvent(2, 0);          // Grammar
+
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+            iResult =  wellok.AddEvent(2, 1);          // Movie
+            iResult =  wellok.AddEvent(2, 2);          // Vocab
+
+            iResult = wellok.AddEvent(2, 2);            //Try to add an additional copy
+
+            Console.WriteLine("Attempting to add a duplicate event");
+            if (iResult == 1)
+            {
+                Console.WriteLine("Addition Failed");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+            wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
 
             Event NewGrammer = new Event("Grammer Stuff", "Polish Grammar is not so hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members(Grammer.GetInterest()));
+            Event Quilt2 = new Event("Yarn Baskets", "We're weaving baskets for ourselves", DateTime.Now, "Culp Center Rm 301", true, "No Image", "No URL", new Members());
+            #region Edit Event
+            Console.WriteLine("Editing the Grammar Event as a student user");
+            Console.WriteLine("\n\r\n\r");
+            iResult = wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+            Console.WriteLine("Editing the Grammar Event as a Super admin");
+            Console.WriteLine("\n\r\n\r");
+            wellok.GetCurrentUser().SetUserType(UserType.SuperAdmin);
+
             //NewGrammer.GetInterest().GetMemberList().Add(wellok.GetCurrentUser());
 
             // Console.WriteLine(wellok.GetAllClubs());
@@ -92,12 +180,117 @@ namespace ClubItSSCConsole
 
             Console.WriteLine(wellok.GetCurrentUser());
 
-            wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
-            wellok.DeleteEvent(2, 1);
+
+            iResult = wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+            Console.WriteLine("Editing an Event with no users");
+            Console.WriteLine("\n\r\n\r");
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+
+            wellok.EditEvent(Quilt2, 0, 0);
+            //display user and club
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+
+            #endregion
+
+            #region Delete Event
+            Console.WriteLine("Deleting the Grammar Event as a student user");
+            Console.WriteLine("\n\r\n\r");
+            wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
+            iResult = wellok.DeleteEvent(2, 1);
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+            wellok.GetCurrentUser().SetUserType(UserType.SuperAdmin);
+            Console.WriteLine("Deleting an Event with members, as a club admin");
+            Console.WriteLine("\n\r\n\r");
+            iResult = wellok.DeleteEvent(2, 1);
             //wellok.RemoveEvent(2, 1);
+            if (iResult == 1)
+            {
+                Console.WriteLine("Insufficient Permissions");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
 
             Console.WriteLine(wellok.GetCurrentUser());
             Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+            Console.WriteLine("Deleting an Event with no members");
+            Console.WriteLine("\n\r\n\r");
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+            wellok.DeleteEvent(0, 0);   //Delete Quilt2
+            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+            wellok.RemoveEvent(2, 1);
+
+            #endregion
+            Console.WriteLine("Attempt to remove an item that exists");
+            Console.WriteLine("\n\r\n\r");
+            Console.WriteLine(wellok.GetCurrentUser());
+
+            iResult = wellok.RemoveEvent(2, 0);
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Can't remove event that doesn't exist");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+
+            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
+
+
+            //remove an event that doesn't exist
+            Console.WriteLine("Attempt to remove an item that doesn't exist");
+            Console.WriteLine("\n\r\n\r");
+            Console.WriteLine(wellok.GetCurrentUser());
+
+            iResult = wellok.RemoveEvent(2, 1);
+
+            if (iResult == 1)
+            {
+                Console.WriteLine("Can't remove event that doesn't exist");
+            }
+            else
+            {
+                Console.WriteLine("Success");
+            }
+
+            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine("Press Enter To Continue");
+            Console.ReadLine();
             //iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
             //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
 
@@ -118,7 +311,7 @@ namespace ClubItSSCConsole
             wellok.Unsubscribe(1);
 
             */
-            
+
             Console.Read();
         }
     }
