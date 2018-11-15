@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[Club]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)

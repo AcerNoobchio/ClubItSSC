@@ -131,6 +131,7 @@ namespace ClubItSSC
         public int CreateUser(Member UserIn)
         {
             int iReturnCode = 0;
+
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
                 AllUsers.GetMemberList().Add(new Member(UserIn));
