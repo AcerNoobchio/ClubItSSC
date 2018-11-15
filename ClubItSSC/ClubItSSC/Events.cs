@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ClubItSSC
 {
+    /// <summary>
+    /// The container class for events, contains a single EventList and utility methods
+    /// </summary>
     public class Events
     {
         private List<Event> EventList;
@@ -41,5 +44,51 @@ namespace ClubItSSC
             }
             return tempEvents;
         }//end CopyMemberList(List<Event>)
+
+        /// <summary>
+        /// Searches for a specific event, here pretty much for convienience
+        /// </summary>
+        /// <param name="EventIn"> The Event Object to look for </param>
+        /// <returns> The index of the found event or a negative number if search failed </returns>
+        public int SearchEvents(Event EventIn)
+        {
+            return this.EventList.BinarySearch(EventIn);
+        }//end SearchEvents(Event)
+
+        /// <summary>
+        /// Performs a quicksort O(n lg n), on the events
+        /// </summary>
+        public void SortEvents()
+        {
+            this.EventList.Sort();
+        }//end SortEvents()
+
+        public void Add(Event EventIn)
+        {
+            this.EventList.Add(EventIn);
+        }
+
+        public void Remove(Event EventIn)
+        {
+            this.EventList.Remove(EventIn);
+        }
+
+        public void RemoveAt(int Index)
+        {
+            this.EventList.RemoveAt(Index);
+        }
+
+
+        public override string ToString()
+        {
+            String str = "";
+            for (int iCount = 0; iCount < this.EventList.Count; iCount++)
+            {
+                str += this.EventList[iCount];
+                str += "\n\r";
+            }
+            return str;
+        }//end ToString()
+
     }//end Events
 }
