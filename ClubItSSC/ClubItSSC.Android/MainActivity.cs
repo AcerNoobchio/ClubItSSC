@@ -20,7 +20,7 @@ namespace ClubItSSC
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            string conn = "@provider= Microsoft.Jet.OLEDB.4.0; data source=\\Users\\micae\\Source\\Repos\\ClubItSSC\\ClubItDatabase.accdb";
+            string conn = "@provider= Microsoft.Jet.OLEDB.4.0; data source=\\Users\\micae\\Source\\Repos\\ClubItSSC\\ClubItDatabase.mdb";
             string DbFolderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string FullPath = Path.Combine(DbFolderPath, conn);
 
