@@ -21,13 +21,13 @@
 
                 <Label x:Name="Lbl_Header2" Text="Login:"/>
 
-                <Label x:Name="Lbl_Username" Text="Username"/>
-                <Entry x:Name="Entry_Username" Placeholder=""/>
+                <Label x:Name="Lbl_Email" Text="Username"/>
+                <Entry x:Name="Entry_Email" Placeholder=""/>
 
                 <Label x:Name="Lbl_Password" Text="Password"/>
                 <Entry x:Name="Entry_Password" Placeholder=""/>
 
-                <Button x:Name="Btn_Login" Text="Log In" Clicked="LoginProcedure"/>
+                <Button x:Name="Btn_Login" Text="Log In" Clicked="LoginButtonClicked"/>
             </StackLayout>
 
         </StackLayout>

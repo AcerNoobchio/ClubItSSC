@@ -8,11 +8,18 @@ namespace ClubItSSC
 {
     public partial class App : Application
     {
+        public static string FilePath;
         public App()
         {
             InitializeComponent();
-
             MainPage = new LoginPage();
+        }
+
+        public App(string DbFilePath)
+        {
+            InitializeComponent();
+            MainPage = new LoginPage();
+            FilePath = DbFilePath;
         }
 
         protected override void OnStart()
@@ -29,5 +36,6 @@ namespace ClubItSSC
         {
             // Handle when your app resumes
         }
+
     }
 }
