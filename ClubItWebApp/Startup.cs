@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using ClubItWebApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ClubItWebApp.Services;
 
 namespace ClubItWebApp
 {
