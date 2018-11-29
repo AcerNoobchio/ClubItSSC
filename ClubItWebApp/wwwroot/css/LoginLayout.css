@@ -1,0 +1,48 @@
+﻿body {
+    background-color: #041E42;
+}
+
+/*.container {
+    background-color: #041E42;
+    width: 500px;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}*/
+
+.mainContent{
+    background-color:aliceblue;
+}
+.mainContent, h2 {
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+
+.mainContent, h4, hr {
+    color: #FFC72C;
+    border-color: #FFC72C;
+}
+
+.mainContent, label{
+    color: white;
+}
+
+
+.mainContent, img {
+    width: 245px;
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.row {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+container-fluid{
+    background-color:blueviolet;
+}
