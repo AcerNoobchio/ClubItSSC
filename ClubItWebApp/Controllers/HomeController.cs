@@ -5,13 +5,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ClubItWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
+using ClubItWebApp.Data;
 
 namespace ClubItWebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
+        public IClubItRepository _repo;
+        public HomeController(IClubItRepository repo)
+        {
+            _repo = repo;
+        }
+
         public IActionResult Index()
         {
+            var user = _repo.ReadApplicationUser(User.Identity.Name);
+            var userId = _repo.ReadApplicationUser(user.User.Id);
+            if (user.HasRole("SuperAdmin"))
+            {
+                return RedirectToAction("About", "Home");
+            }
+            else if(user.HasRole("ClubAdmin"))
+            {
+                return RedirectToAction("Contact", "Home");
+            }
             return View();
         }
 
