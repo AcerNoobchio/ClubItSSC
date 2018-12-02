@@ -27,9 +27,13 @@ namespace ClubItWebApp.Controllers
             {
                 return RedirectToAction("About", "Home");
             }
-            else if(user.HasRole("ClubAdmin"))
+            else if (user.HasRole("ClubAdmin"))
             {
                 return RedirectToAction("Contact", "Home");
+            }
+            else if(user.HasRole("StudentUser"))
+            {
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }

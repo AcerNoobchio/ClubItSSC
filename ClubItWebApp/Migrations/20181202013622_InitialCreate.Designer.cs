@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClubItWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181129235536_InitialCreate")]
+    [Migration("20181202013622_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
