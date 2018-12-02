@@ -41,11 +41,15 @@ namespace ClubItWebApp
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             
-
+            // add the initializer class to seed roles and users
             services.AddScoped<Initializer>();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            // sets the default identity and configures the app to use authentication
+            // along with the specified dbContext
+
+            // sets up the roles and user manager api
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddUserManager<UserManager<IdentityUser>>()
