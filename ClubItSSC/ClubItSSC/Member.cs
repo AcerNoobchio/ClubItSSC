@@ -94,6 +94,7 @@ namespace ClubItSSC
             this.Type = TypeIn;
             this.EventList = new Events(EventsIn);
             EventInterest = EventInterest.NotGoing;
+            this.Interests.Process();       //Perform all necessary processing on a member's Interests
         }//end Member(String, String, UserInterests, UserType)
 
         public Member(String NameIn, String ENumberIn, UserInterests InterestsIn, UserType TypeIn, EventInterest InterestIn, Events EventsIn)
@@ -104,6 +105,7 @@ namespace ClubItSSC
             this.Type = TypeIn;
             this.EventList = new Events(EventsIn);
             this.EventInterest = InterestIn;
+            this.Interests.Process();       //Perform all necessary processing on a member's Interests
         }//end Member(String, String, UserInterests, UserType)
 
         public Member(Member MemberIn)
@@ -114,7 +116,8 @@ namespace ClubItSSC
             Type = MemberIn.Type;
             this.EventInterest = MemberIn.EventInterest;
             this.EventList = new Events(MemberIn.GetEvents());
-            
+            this.Interests.Process();       //Perform all necessary processing on a member's Interests
+
         }//end Member(Member)
         #endregion
 
