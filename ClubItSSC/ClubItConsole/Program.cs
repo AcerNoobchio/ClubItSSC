@@ -14,6 +14,17 @@ namespace ClubItSSCConsole
         public static void Main(string[] args)
         {
             Manage wellok = new Manage();   //Nothing in the lists yet
+            UserInterest testinterest = new UserInterest("I Like Hiking and swimming and fishing and I hate to go to the mountains");
+
+            NLPUtil.RemoveStopWords(testinterest);
+            NLPUtil.RemovePrepositions(testinterest);
+            NLPUtil.Stem(testinterest);
+
+            Console.Write(testinterest);
+
+            UserInterests testInterests = new UserInterests("i like hiking, swimming, shooting, reading books, watching tv and other stuff");
+            testInterests.Process();
+            Console.Write(testInterests);
 
             Member UserToAdd = new Member("Jacob", "hoyosj@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
             wellok.SetCurrentUser(UserToAdd);   //Basically the login
@@ -71,6 +82,8 @@ namespace ClubItSSCConsole
             wellok.CreateClub(ClubToAdd6);
 
             //Test permission access
+            /*
+            #region testing backend
             int iResult = 0;
 
             wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
@@ -150,6 +163,9 @@ namespace ClubItSSCConsole
 
             Event NewGrammer = new Event("Grammer Stuff", "Polish Grammar is not so hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members(Grammer.GetInterest()));
             Event Quilt2 = new Event("Yarn Baskets", "We're weaving baskets for ourselves", DateTime.Now, "Culp Center Rm 301", true, "No Image", "No URL", new Members());
+
+            #endregion
+
             #region Edit Event
             Console.WriteLine("Editing the Grammar Event as a student user");
             Console.WriteLine("\n\r\n\r");
@@ -170,13 +186,8 @@ namespace ClubItSSCConsole
             Console.WriteLine("\n\r\n\r");
             wellok.GetCurrentUser().SetUserType(UserType.SuperAdmin);
 
-            //NewGrammer.GetInterest().GetMemberList().Add(wellok.GetCurrentUser());
-
-            // Console.WriteLine(wellok.GetAllClubs());
 
             Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
-            //int iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
-            //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
 
             Console.WriteLine(wellok.GetCurrentUser());
 
@@ -251,6 +262,8 @@ namespace ClubItSSCConsole
             wellok.RemoveEvent(2, 1);
 
             #endregion
+
+            #region remove event
             Console.WriteLine("Attempt to remove an item that exists");
             Console.WriteLine("\n\r\n\r");
             Console.WriteLine(wellok.GetCurrentUser());
@@ -291,25 +304,10 @@ namespace ClubItSSCConsole
             Console.WriteLine(wellok.GetCurrentUser());
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
-            //iIndex = wellok.GetAllUsers().SearchMembers(wellok.GetCurrentUser());
-            //Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iIndex]);
 
-            /*
-            Club Update2 = new Club("Sports", "Go generic team! Fist bump! *gym bro noises*", false, new Members(wellok.GetAllUsers()), new Member(wellok.GetAllUsers().GetMemberList()[3]), new Announcements(), new Events());
 
-            wellok.EditClub(Update2, 5);
-
-            wellok.RemoveClub(1);
-
-            wellok.Subscribe(1);
-
-            for (int iCount = 0; iCount < wellok.GetAllClubs().GetClubs().Count; iCount++)
-            {
-                Console.WriteLine(wellok.GetAllClubs().GetClubs()[iCount]);
-            }
-
-            wellok.Unsubscribe(1);
-
+            Console.Read();
+            #endregion
             */
 
             Console.Read();

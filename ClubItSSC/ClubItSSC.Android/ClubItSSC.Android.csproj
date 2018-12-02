@@ -94,12 +94,6 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClubItSSC\ClubItSSC.csproj">
-      <Project>{4653DDF7-1A1C-4A89-9543-5B9D665BC0C9}</Project>
-      <Name>ClubItSSC</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ETSU_Logo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

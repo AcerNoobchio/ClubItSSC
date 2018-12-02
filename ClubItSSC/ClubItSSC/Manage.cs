@@ -13,6 +13,7 @@ namespace ClubItSSC
         private Members AllUsers;       //The List of all members, should be populated by the database
         private Clubs SelectedClubs;    //The club that the management system is currently interacting with
         private Clubs AllClubs;         //The list of All clubs, should be populated by the database
+        private Events MasterCalendar;  //the list of all events, should be populated by the database
 
         #region Constructors
         public Manage()
@@ -21,14 +22,16 @@ namespace ClubItSSC
             SelectedClubs = new Clubs();
             AllClubs = new Clubs();         //Maybe replace with reading from the database, Im not sure yet
             AllUsers = new Members();
+            MasterCalendar = new Events();
         }//end Manage()
 
-        public Manage(Member CurrentUserIn, Clubs SelectedClubsIn, Clubs AllClubsIn, Members AllUsersIn)
+        public Manage(Member CurrentUserIn, Clubs SelectedClubsIn, Clubs AllClubsIn, Members AllUsersIn, Events CalendarIn)
         {
             this.CurrentUser = new Member(CurrentUserIn);
             this.SelectedClubs = new Clubs(SelectedClubsIn);
             this.AllClubs = new Clubs(AllClubsIn);
             this.AllUsers = new Members(AllUsersIn);
+            this.MasterCalendar = new Events(CalendarIn);
         }//end Manage(Member, Clubs, Clubs)
 
         public Manage(Manage ManageIn)
@@ -37,6 +40,7 @@ namespace ClubItSSC
             this.SelectedClubs = new Clubs(ManageIn.SelectedClubs);
             this.AllClubs = new Clubs(ManageIn.AllClubs);
             this.AllUsers = new Members(ManageIn.AllUsers);
+            this.MasterCalendar = new Events(ManageIn.MasterCalendar);
         }//end Manage(Manage)
         #endregion
 
@@ -116,6 +120,11 @@ namespace ClubItSSC
         {
             return this.AllClubs;
         }//end GetAllClubs()
+
+        public Events GetCalendar()
+        {
+            return this.MasterCalendar;
+        }//end GetMasterCalendar()
 
         #endregion
 
@@ -279,6 +288,10 @@ namespace ClubItSSC
             {
                 AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().Add(EventIn);
                 AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().Sort();                                           //Sort the club's event list for tidiness
+
+                this.MasterCalendar.Add(EventIn);                                                                           //Update the master calendar when the event is created
+                this.MasterCalendar.SortEvents();
+
                 //This might be a good place to update the database
             }
             else
@@ -308,6 +321,9 @@ namespace ClubItSSC
                 Event OldEvent = AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex];
                 AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex] = new Event(EventIn);
                 MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
+
+                this.MasterCalendar.GetEventList()[MasterCalendar.SearchEvents(OldEvent)] = new Event(EventIn);                 //Edit the event in the master calendar
+                this.MasterCalendar.SortEvents();
 
                 if (MembersToUpdate != null)                                                                                    //It is possible that the event exists but no user is interested
                 {
@@ -356,6 +372,7 @@ namespace ClubItSSC
                 Members MembersToUpdate = new Members();
                 MembersToUpdate = new Members(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest()); //Copy the user list from the event to the temp list
                 AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList().RemoveAt(EventIndex);
+                this.MasterCalendar.RemoveAt(MasterCalendar.SearchEvents(OldEvent));                                        //Remove the event in the master calendar
 
                 for (int iCount = 0; iCount < MembersToUpdate.GetMemberList().Count; iCount++)                              //For each member interested in the event, need to remove Events from users too
                 {
@@ -427,7 +444,7 @@ namespace ClubItSSC
 
         #endregion
 
-        #region Student-Event Interactions
+        #region User-Event Interactions
         /// <summary>
         /// Allows the user to add an event to his/her event list, also adds the user to the event's interest list
         /// </summary>
@@ -437,11 +454,17 @@ namespace ClubItSSC
         public int AddEvent(int ClubIndex, int EventIndex)
         {
             int iReturnCode = 0;
-
-            if(CurrentUser.GetEvents().SearchEvents(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex]) < 0) //If the user does not already have the event added
+            int iMasterIndex = 0;
+            Event OldEvent = AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex];
+            if (CurrentUser.GetEvents().SearchEvents(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex]) < 0) //If the user does not already have the event added
             {
-                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest().GetMemberList().Add(this.CurrentUser);      //Add the user to the event in question
-                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest().SortMembers();                              //Keep the member list nice and tidy
+                OldEvent.GetInterest().GetMemberList().Add(this.CurrentUser);      //Add the user to the event in question
+                OldEvent.GetInterest().SortMembers();                              //Keep the member list nice and tidy
+
+                iMasterIndex = MasterCalendar.SearchEvents(OldEvent);
+                this.MasterCalendar.GetEventList()[iMasterIndex].GetInterest().Add(this.CurrentUser);    //Add the user to the event in the master calendar
+                this.MasterCalendar.GetEventList()[iMasterIndex].GetInterest().SortMembers();
+
                 CurrentUser.GetEvents().GetEventList().Add(new Event(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex]));   //Add the event to the user's event list
                 CurrentUser.GetEvents().SortEvents();                                                                                           //Keep the user's event list nice and tidy
             }
@@ -462,11 +485,15 @@ namespace ClubItSSC
         public int RemoveEvent(int ClubIndex, int EventIndex)
         {
             int iReturnCode = 0;
-            int iSearchResult = CurrentUser.GetEvents().SearchEvents(AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex]);
+            Event OldEvent = AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex];
+            int iSearchResult = CurrentUser.GetEvents().SearchEvents(OldEvent);
             if (iSearchResult >= 0) //If the user already has the event added
             {
-                AllClubs.GetClubs()[ClubIndex].GetEvents().GetEventList()[EventIndex].GetInterest().GetMemberList().Remove(this.CurrentUser);      //Add the user to the event in question
-                CurrentUser.GetEvents().GetEventList().RemoveAt(iSearchResult);                                                                     //Add the event to the user's event list
+                OldEvent.GetInterest().GetMemberList().Remove(this.CurrentUser);                 //Remove the user from the event in question
+                CurrentUser.GetEvents().GetEventList().RemoveAt(iSearchResult);                  //Remove the event from the user's event list
+
+                iSearchResult = this.MasterCalendar.SearchEvents(OldEvent);                     //find the event in the Master Calendar
+                this.MasterCalendar.GetEventList()[iSearchResult].GetInterest().GetMemberList().Remove(this.CurrentUser);
             }
             else
             {

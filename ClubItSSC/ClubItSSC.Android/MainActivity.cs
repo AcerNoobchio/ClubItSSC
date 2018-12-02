@@ -25,7 +25,7 @@ namespace ClubItSSC
             string FullPath = Path.Combine(DbFolderPath, conn);
 
             //OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\Users\micae\Source\Repos\ClubItSSC\ClubItDatabase.mdb");
-            LoadApplication(new App(FullPath));
+            //LoadApplication(new App(FullPath));
         }
     }
 }
