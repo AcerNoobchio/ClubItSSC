@@ -1,0 +1,29 @@
+<link href="~/css/RachelCSS.css" rel="stylesheet" type="text/css" />
+<body>
+	<header>
+		<h2>Clubs</h2>
+	</header>
+	<br>
+	<div class="container">
+		<input type="text" placeholder="Search..">
+		<input type="submit" value="Go">
+		<table>
+			<tr>
+				<th>Club Name</th>
+				<th>Description</th> 
+			</tr>
+			<tr>
+				<td>club_name</td>
+				<td>club_description</td> 
+			</tr>
+		</table>
+		<section>
+			<button type="button">View More Clubs</button>
+			<button type="button">Add Club</button>
+		</section>
+	</div>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

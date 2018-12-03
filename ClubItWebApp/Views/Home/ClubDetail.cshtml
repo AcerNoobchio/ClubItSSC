@@ -1,0 +1,99 @@
+<link href="~/css/RachelCSS.css" rel="stylesheet" type="text/css" />
+<body>
+	<header>
+		<h2>Club Detail</h2>
+	</header>
+	<br>
+	<div class="container">
+		<form action=>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_name">Club Name</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="club_name" name="club_name" value="club_name" readonly>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_description">Club Description</label>
+				</div>
+				<div class="col-75">
+					<textarea id="club_description" name="club_description" style="height:200px" readonly>club_description</textarea>
+				</div>
+			</div>
+			<br>
+			<h3>Club Officers:</h3>
+			<div class="row">
+				<div class="col-25">
+					<label for="president">President</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="president" name="president" value="president" readonly>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="vice_president">Vice President</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="vice_president" name="vice_president" value="vice_president" readonly>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="secretary">Secretary</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="secretary" name="secretary" value="secretary" readonly>
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_members">Club Members</label>
+				</div>
+				<div class="col-75">
+					<textarea id="club_members" name="club_members" style="height:200px" readonly>club_members</textarea>
+				</div>
+			</div>
+		</form>
+		<h3>Club Events</h3>
+		<table>
+			<tr>
+				<th>Event Title</th>
+				<th>Event Description</th>
+				<th>Date</th>
+			</tr>
+			<tr>
+				<td>event_title</td>
+				<td>event_description</td>
+				<td>event_date</td>
+			</tr>
+		</table>
+		<br>
+		<form action=>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_status">Club Status</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="club_status" name="club_status" value="club_status" readonly>
+				</div>
+			</div>
+		</form>
+		<section>
+			<button type="button">Unsubscribe</button>
+			<button type="button">Subscribe</button>
+			<button type="button">Edit</button>
+		</section>
+	</div>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

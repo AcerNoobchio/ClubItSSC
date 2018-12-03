@@ -1,0 +1,74 @@
+<link href="~/css/RachelCSS.css" rel="stylesheet" type="text/css" />
+<body>
+	<header>
+		<h2>Create Club</h2>
+	</header>
+	<br>
+	<div class="container">
+		<form action=>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_name">Club Name</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="club_name" name="club_name" placeholder="Enter a name">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_description">Club Description</label>
+				</div>
+				<div class="col-75">
+					<textarea id="club_description" name="club_description" placeholder="Enter a description" style="height:200px"></textarea>
+				</div>
+			</div>
+			<br>
+			<h3>Club Officers:</h3>
+			<div class="row">
+				<div class="col-25">
+					<label for="president">President</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="president" name="president" placeholder="Enter a president">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="vice_president">Vice President</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="vice_president" name="vice_president" placeholder="Enter a vice president">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="secretary">Secretary</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="secretary" name="secretary" placeholder="Enter a secretary">
+				</div>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-25">
+					<label for="club_status">Club Status</label>
+				</div>
+				<div class="col-75">
+					<input type="text" id="club_status" name="club_status" placeholder="Enter status">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<input type="submit" value="Submit">
+			</div>
+		</form>
+	</div>
+</body>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
