@@ -761,7 +761,6 @@ namespace ClubItSSC
         };
         #endregion
 
-
         //Caution: profanity and offensive terms, to avoid looking, collapse the regioning and do not expand 
         #region profanity filter
         /// <summary>
@@ -1468,6 +1467,7 @@ namespace ClubItSSC
             "foot fetish",
             "footjob",
             "foreskin",
+            "fortnut",
             "freex",
             "frenchify",
             "frigg",

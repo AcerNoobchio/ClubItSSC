@@ -15,6 +15,7 @@ namespace ClubItSSC
         private Clubs AllClubs;                 //The list of All clubs, should be populated by the database
         private Events MasterCalendar;          //the list of all events, should be populated by the database
         private AllInterests InterestFrequency; //The list of all interests and the frequency at which they occur
+        private int ClubThreshold = 7;          //The threshold at which a new club is created
 
         #region Constructors
         public Manage()
@@ -153,7 +154,7 @@ namespace ClubItSSC
                 AllUsers.GetMemberList().Add(new Member(UserIn));
                 AllUsers.SortMembers();     //Keep the list nice and tidy
 
-                this.InterestFrequency.AddInterests(UserIn.GetUserInterests()); //Add the user's interests to the table
+                this.InterestFrequency.AddInterests(UserIn.GetUserInterests(), UserIn); //Add the user's interests to the table
 
                 //This might be a good place to update the database
             }
@@ -177,12 +178,12 @@ namespace ClubItSSC
             int iReturnCode = 0;
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
-                this.InterestFrequency.RemoveInterests(AllUsers.GetMemberList()[Index].GetUserInterests()); //Remove the user's old interests
+                this.InterestFrequency.RemoveInterests(AllUsers.GetMemberList()[Index].GetUserInterests(), AllUsers.GetMemberList()[Index]); //Remove the user's old interests
 
                 AllUsers.GetMemberList()[Index] = new Member(UserIn);
                 AllUsers.SortMembers();         //Keep the list nice and tidy
 
-                this.InterestFrequency.AddInterests(UserIn.GetUserInterests()); //Add the user's new interests to the table
+                this.InterestFrequency.AddInterests(UserIn.GetUserInterests(), UserIn); //Add the user's new interests to the table
 
                 //Might be a good place for a database update
             }
@@ -205,7 +206,7 @@ namespace ClubItSSC
 
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
-                this.InterestFrequency.RemoveInterests(AllUsers.GetMemberList()[Index].GetUserInterests()); //Remove the user's interests as well
+                this.InterestFrequency.RemoveInterests(AllUsers.GetMemberList()[Index].GetUserInterests(), AllUsers.GetMemberList()[Index]); //Remove the user's interests as well
 
                 AllUsers.GetMemberList().RemoveAt(Index);
                 //Sorting is likely not necessary here
@@ -522,6 +523,62 @@ namespace ClubItSSC
             return iReturnCode;
         }//end AddEvent(int, int)
 
+
+
+        #endregion
+
+        #region Frequency Table Methods
+
+        /// <summary>
+        /// Finds the number of clubs at the new club creation threshold 
+        /// </summary>
+        /// <returns> A List of interests at the threshold </returns>
+        public UserInterests GetInterestsAtThreshold()
+        {
+            return this.InterestFrequency.GetFrequencyKeys(this.ClubThreshold);
+        }//end GetInterestsAtThreshold()
+
+        /// <summary>
+        /// Determines whether or not there is sufficient interest to generate any new clubs 
+        /// </summary>
+        /// <returns> true if there are interests at the threshold, false otherwise </returns>
+        public bool NewClubs()
+        {
+            return (this.InterestFrequency.GetFrequencyKeys(this.ClubThreshold).GetUserInterests().Count > 0);
+        }//end NewClubs()
+
+        /// <summary>
+        /// Generates a print out of a single club that could be created and the users that would comprise it
+        /// </summary>
+        /// <param name="InterestIn"> the interest that the club would be based on </param>
+        /// <returns> A notification in list format </returns>
+        public String GenerateClubNotification(UserInterest InterestIn)
+        {
+            String strToReturn = "There is sufficient interest to create a " + InterestIn + " club with the following members:";
+            for(int i = 0; i < this.InterestFrequency.GetUserValues(InterestIn).GetMemberList().Count; i++)
+            {
+                strToReturn += "\n" + InterestFrequency.GetUserValues(InterestIn).GetMemberList()[i].GetName();
+                strToReturn += " - " + InterestFrequency.GetUserValues(InterestIn).GetMemberList()[i].GetEmail();
+            }
+
+            return strToReturn;
+        }//end GenerateClubNotification()
+
+        /// <summary>
+        /// Generates a print out of all of the clubs that have sufficient interest to be created and the users that would comprise them
+        /// </summary>
+        /// <returns> A notifiation in list format </returns>
+        public String GenerateClubNotifications()
+        {
+            UserInterests NewInterests = GetInterestsAtThreshold();
+            int iNewClubs = NewInterests.GetUserInterests().Count;
+            String strToReturn = iNewClubs + " new clubs can be formed\n";
+            for(int i = 0; i < iNewClubs; i++)
+            {
+                strToReturn += GenerateClubNotification(NewInterests.GetUserInterests()[i]);
+            }
+            return strToReturn;
+        }//end GenerateClubNotiifications
 
 
         #endregion
