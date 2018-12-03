@@ -1,7 +1,4 @@
-﻿* {
-    box-sizing: border-box;
-}
-
+﻿
 /* Style the header */
 header {
     background-color: #041E42;
@@ -17,6 +14,7 @@ table, th, td {
     border: 1px solid black;
     text-align: left;
     word-wrap: normal;
+    table-layout: fixed;
 }
 
 th {
@@ -33,6 +31,7 @@ footer {
     padding: 10px;
     text-align: center;
     color: white;
+    --position: relative;
 }
 
 /* Responsive layout - two columns/boxes stack on top of each other(max-width: 600px*/
@@ -40,4 +39,21 @@ footer {
     table {
         border: 0;
     }
+}
+
+section {
+    padding: 45px;
+}
+
+button {
+    background-color: #FFC72C;
+    border: 1px solid black;
+    border-radius: 12px;
+    color: #041E42;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }

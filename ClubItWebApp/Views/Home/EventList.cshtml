@@ -1,30 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Club Feed";
-}
-<link href="~/css/ClubFeedLayout.css" rel="stylesheet" type="text/css" />
+﻿
+<link href="~/css/EventListLayout.css" rel="stylesheet" type="text/css" />
 
 <body>
     <header>
-        <h2>Club Feed</h2>
+        <h2>ClubIt Event List</h2>
     </header>
-
+    <table>
+        <tr>
+            <th>Club Name</th>
+            <th>Title</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>Basket Weaving</td>
+            <td>Basket Weaving New Years extravaganza!</td>
+            <td>1/1/2019</td>
+        </tr>
+    </table>
     <section>
-        <event_header>
-            <ul>
-                <li><h2>Club Name</h2></li>
-                <li>Event Title</li>
-                <li>Date & Time</li>
-                <li>Location</li>
-            </ul>
-        </event_header>
-        <event_detail>
-            <h1>Event Title</h1>
-            <p>This is our very fun event</p>
-        </event_detail>
+        <button>
+            New Event
+        </button>
+        <button>
+            View More Events
+        </button>
     </section>
-
-    <footer>
-        <p>Footer stuff here</p>
-    </footer>
-
 </body>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
