@@ -13,49 +13,63 @@ namespace ClubItSSCConsole
     {
         public static void Main(string[] args)
         {
-            Manage wellok = new Manage();   //Nothing in the lists yet
-            UserInterest testinterest = new UserInterest("I Like Hiking and swimming and fishing and I hate to go to the mountains");
+            Manage Manager = new Manage();   //Nothing in the lists yet
 
-            NLPUtil.RemoveStopWords(testinterest);
-            NLPUtil.RemovePrepositions(testinterest);
-            NLPUtil.Stem(testinterest);
+            UserInterests testInterests = new UserInterests("i like hiking, swimming, shooting, reading books, watching netflix");
+            UserInterests testInterests2 = new UserInterests("i like star trek, swimming, fishing, reading books, halo");
+            UserInterests testInterests3 = new UserInterests("i like hiking, swimming, shooting, reading books, playing video games");
+            UserInterests testInterests4 = new UserInterests("i like to run, jump, go to the gym, work out, be fit");
+            UserInterests testInterests5 = new UserInterests("i like polish, basket weaving, bird spotting, shooting, computers");
+            UserInterests testInterests6 = new UserInterests("i like polish, basket weaving, playing video games, going to the gym, computers");
+            UserInterests testInterests7 = new UserInterests("i like writing, working out, playing video games, going to the gym, bird spotting");
 
-            Console.Write(testinterest);
+            //testInterests.Process();
+            //testInterests2.Process();
+            //testInterests3.Process();
+            //testInterests4.Process();
+            //testInterests5.Process();
+            //testInterests6.Process();
+            //testInterests7.Process();
 
-            UserInterests testInterests = new UserInterests("i like hiking, swimming, shooting, reading books, watching tv and other stuff");
-            testInterests.Process();
-            Console.Write(testInterests);
+            //AllInterests DTMatrix = new AllInterests();
+            //DTMatrix.AddInterests(testInterests);
+            //DTMatrix.AddInterests(testInterests2);
+            //DTMatrix.AddInterests(testInterests3);
+            //DTMatrix.AddInterests(testInterests4);
+            //DTMatrix.AddInterests(testInterests5);
+            //DTMatrix.AddInterests(testInterests6);
+            //DTMatrix.AddInterests(testInterests7);
+            //Console.Write(DTMatrix);
 
-            Member UserToAdd = new Member("Jacob", "hoyosj@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
-            wellok.SetCurrentUser(UserToAdd);   //Basically the login
-            wellok.CreateUser(UserToAdd);
+            Member UserToAdd = new Member("Jacob", "hoyosj@etsu.edu", testInterests7, UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Manager.SetCurrentUser(UserToAdd);   //Basically the login
+            Manager.CreateUser(UserToAdd);
 
             //Test Users
-            Member UserToAdd1 = new Member("Rachel", "revisr@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd2 = new Member("Myra", "tdm@etsu.edu", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd3 = new Member("Micaela", "tuckerm@etsu.edu", new UserInterests(), UserType.ClubAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd4 = new Member("Mary", "snoddym@etsu.edu", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
-            Member UserToAdd5 = new Member("Brian", "bennettb@etsu.edu", new UserInterests(), UserType.StudentUser, EventInterest.NotGoing, new Events());
+            Member UserToAdd1 = new Member("Rachel", "revisr@etsu.edu", testInterests, UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd2 = new Member("Myra", "tdm@etsu.edu", testInterests2, UserType.ClubAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd3 = new Member("Micaela", "tuckerm@etsu.edu", testInterests3, UserType.ClubAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd4 = new Member("Mary", "snoddym@etsu.edu", testInterests4, UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            Member UserToAdd5 = new Member("Brian", "bennettb@etsu.edu", testInterests5, UserType.StudentUser, EventInterest.NotGoing, new Events());
+            Member UserToAdd6 = new Member("Jordan", "hoyosja@etsu.edu", testInterests6, UserType.StudentUser, EventInterest.NotGoing, new Events());
 
-            wellok.CreateUser(UserToAdd1);
-            wellok.CreateUser(UserToAdd2);
-            wellok.CreateUser(UserToAdd3);
-            wellok.CreateUser(UserToAdd4);
-            wellok.CreateUser(UserToAdd5);
+            Manager.CreateUser(UserToAdd1);
+            Manager.CreateUser(UserToAdd2);
+            Manager.CreateUser(UserToAdd3);
+            Manager.CreateUser(UserToAdd4);
+            Manager.CreateUser(UserToAdd5);
+            Manager.CreateUser(UserToAdd6);
 
-            /*
-            Member Update = new Member("Brian", "E0090011", new UserInterests(), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
+            
+            Member Update = new Member("Brian", "E0090011", new UserInterests("i like russian, basket weaving, bird spotting, shooting, computers"), UserType.SuperAdmin, EventInterest.NotGoing, new Events());
 
-            wellok.EditUser(Update, 5);
+            Manager.EditUser(Update, 0);
 
-            wellok.RemoveUser(2);
-           
+            Manager.RemoveUser(3);
 
-            for (int iCount = 0; iCount < wellok.GetAllUsers().GetMemberList().Count; iCount++)
-            {
-                Console.WriteLine(wellok.GetAllUsers().GetMemberList()[iCount]);
-            }
-            */
+            Console.Write(Manager.GetInterestFrequency());
+            
+            
             //Test Events, simulate typed in fields in the gui 
 
             Event MovieDay = new Event("MovieDay", "We're watching a polish movie", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members());
@@ -74,21 +88,21 @@ namespace ClubItSSCConsole
             Club ClubToAdd5 = new Club("Swimming", "Don't drown", false, new Members(), new Member(), new Announcements(), new Events());
             Club ClubToAdd6 = new Club("Sports", "Go generic team! Fist bump! *gym bro noises*", false, new Members(), new Member(), new Announcements(), new Events());
 
-            wellok.CreateClub(ClubToAdd1);
-            wellok.CreateClub(ClubToAdd2);
-            wellok.CreateClub(ClubToAdd3);
-            wellok.CreateClub(ClubToAdd4);
-            wellok.CreateClub(ClubToAdd5);
-            wellok.CreateClub(ClubToAdd6);
+            Manager.CreateClub(ClubToAdd1);
+            Manager.CreateClub(ClubToAdd2);
+            Manager.CreateClub(ClubToAdd3);
+            Manager.CreateClub(ClubToAdd4);
+            Manager.CreateClub(ClubToAdd5);
+            Manager.CreateClub(ClubToAdd6);
 
             //Test permission access
             /*
             #region testing backend
             int iResult = 0;
 
-            wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
+            Manager.GetCurrentUser().SetUserType(UserType.StudentUser);
 
-            iResult =  wellok.CreateEvent(Quilt, 0);
+            iResult =  Manager.CreateEvent(Quilt, 0);
             Console.WriteLine("Attempting to create an event as a student user");
             if (iResult == 1)
             {
@@ -100,9 +114,9 @@ namespace ClubItSSCConsole
             }
 
             Console.WriteLine("Attempting to add an event that doesn't already exist");
-            wellok.GetCurrentUser().SetUserType(UserType.ClubAdmin);
+            Manager.GetCurrentUser().SetUserType(UserType.ClubAdmin);
 
-            iResult = wellok.CreateEvent(Quilt, 0); //Try creating quilt again
+            iResult = Manager.CreateEvent(Quilt, 0); //Try creating quilt again
 
             if (iResult == 1)
             {
@@ -113,20 +127,20 @@ namespace ClubItSSCConsole
                 Console.WriteLine("Success");
             }
 
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0]);
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[0]);
 
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 
-            iResult = wellok.CreateEvent(MovieDay, 2);
-            iResult =  wellok.CreateEvent(Gym, 5);
-            iResult =  wellok.CreateEvent(Caps, 5);
-            iResult =  wellok.CreateEvent(Grammer, 2);
-            iResult =  wellok.CreateEvent(Vocab, 2);
+            iResult = Manager.CreateEvent(MovieDay, 2);
+            iResult =  Manager.CreateEvent(Gym, 5);
+            iResult =  Manager.CreateEvent(Caps, 5);
+            iResult =  Manager.CreateEvent(Grammer, 2);
+            iResult =  Manager.CreateEvent(Vocab, 2);
 
             Console.WriteLine("Attempting to add an event that doesn't already exist");
 
-            iResult =  wellok.AddEvent(2, 0);          // Grammar
+            iResult =  Manager.AddEvent(2, 0);          // Grammar
 
 
             if (iResult == 1)
@@ -141,10 +155,10 @@ namespace ClubItSSCConsole
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 
-            iResult =  wellok.AddEvent(2, 1);          // Movie
-            iResult =  wellok.AddEvent(2, 2);          // Vocab
+            iResult =  Manager.AddEvent(2, 1);          // Movie
+            iResult =  Manager.AddEvent(2, 2);          // Vocab
 
-            iResult = wellok.AddEvent(2, 2);            //Try to add an additional copy
+            iResult = Manager.AddEvent(2, 2);            //Try to add an additional copy
 
             Console.WriteLine("Attempting to add a duplicate event");
             if (iResult == 1)
@@ -159,7 +173,7 @@ namespace ClubItSSCConsole
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 
-            wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
+            Manager.GetCurrentUser().SetUserType(UserType.StudentUser);
 
             Event NewGrammer = new Event("Grammer Stuff", "Polish Grammar is not so hard", DateTime.Now, "Culp Center Rm 104", true, "No Image", "No URL", new Members(Grammer.GetInterest()));
             Event Quilt2 = new Event("Yarn Baskets", "We're weaving baskets for ourselves", DateTime.Now, "Culp Center Rm 301", true, "No Image", "No URL", new Members());
@@ -169,7 +183,7 @@ namespace ClubItSSCConsole
             #region Edit Event
             Console.WriteLine("Editing the Grammar Event as a student user");
             Console.WriteLine("\n\r\n\r");
-            iResult = wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
+            iResult = Manager.EditEvent(NewGrammer, 2, 0); //edit polish grammer
 
             if (iResult == 1)
             {
@@ -184,15 +198,15 @@ namespace ClubItSSCConsole
             Console.ReadLine();
             Console.WriteLine("Editing the Grammar Event as a Super admin");
             Console.WriteLine("\n\r\n\r");
-            wellok.GetCurrentUser().SetUserType(UserType.SuperAdmin);
+            Manager.GetCurrentUser().SetUserType(UserType.SuperAdmin);
 
 
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[2].GetEvents());
 
-            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine(Manager.GetCurrentUser());
 
 
-            iResult = wellok.EditEvent(NewGrammer, 2, 0); //edit polish grammer
+            iResult = Manager.EditEvent(NewGrammer, 2, 0); //edit polish grammer
 
             if (iResult == 1)
             {
@@ -208,19 +222,19 @@ namespace ClubItSSCConsole
 
             Console.WriteLine("Editing an Event with no users");
             Console.WriteLine("\n\r\n\r");
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[0].GetEvents());
 
-            wellok.EditEvent(Quilt2, 0, 0);
+            Manager.EditEvent(Quilt2, 0, 0);
             //display user and club
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[0].GetEvents());
 
             #endregion
 
             #region Delete Event
             Console.WriteLine("Deleting the Grammar Event as a student user");
             Console.WriteLine("\n\r\n\r");
-            wellok.GetCurrentUser().SetUserType(UserType.StudentUser);
-            iResult = wellok.DeleteEvent(2, 1);
+            Manager.GetCurrentUser().SetUserType(UserType.StudentUser);
+            iResult = Manager.DeleteEvent(2, 1);
 
             if (iResult == 1)
             {
@@ -230,11 +244,11 @@ namespace ClubItSSCConsole
             {
                 Console.WriteLine("Success");
             }
-            wellok.GetCurrentUser().SetUserType(UserType.SuperAdmin);
+            Manager.GetCurrentUser().SetUserType(UserType.SuperAdmin);
             Console.WriteLine("Deleting an Event with members, as a club admin");
             Console.WriteLine("\n\r\n\r");
-            iResult = wellok.DeleteEvent(2, 1);
-            //wellok.RemoveEvent(2, 1);
+            iResult = Manager.DeleteEvent(2, 1);
+            //Manager.RemoveEvent(2, 1);
             if (iResult == 1)
             {
                 Console.WriteLine("Insufficient Permissions");
@@ -244,31 +258,31 @@ namespace ClubItSSCConsole
                 Console.WriteLine("Success");
             }
 
-            Console.WriteLine(wellok.GetCurrentUser());
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[2].GetEvents());
+            Console.WriteLine(Manager.GetCurrentUser());
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[2].GetEvents());
 
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 
             Console.WriteLine("Deleting an Event with no members");
             Console.WriteLine("\n\r\n\r");
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
-            wellok.DeleteEvent(0, 0);   //Delete Quilt2
-            Console.WriteLine(wellok.GetAllClubs().GetClubs()[0].GetEvents());
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[0].GetEvents());
+            Manager.DeleteEvent(0, 0);   //Delete Quilt2
+            Console.WriteLine(Manager.GetAllClubs().GetClubs()[0].GetEvents());
 
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 
-            wellok.RemoveEvent(2, 1);
+            Manager.RemoveEvent(2, 1);
 
             #endregion
 
             #region remove event
             Console.WriteLine("Attempt to remove an item that exists");
             Console.WriteLine("\n\r\n\r");
-            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine(Manager.GetCurrentUser());
 
-            iResult = wellok.RemoveEvent(2, 0);
+            iResult = Manager.RemoveEvent(2, 0);
 
             if (iResult == 1)
             {
@@ -280,7 +294,7 @@ namespace ClubItSSCConsole
             }
 
 
-            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine(Manager.GetCurrentUser());
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 
@@ -288,9 +302,9 @@ namespace ClubItSSCConsole
             //remove an event that doesn't exist
             Console.WriteLine("Attempt to remove an item that doesn't exist");
             Console.WriteLine("\n\r\n\r");
-            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine(Manager.GetCurrentUser());
 
-            iResult = wellok.RemoveEvent(2, 1);
+            iResult = Manager.RemoveEvent(2, 1);
 
             if (iResult == 1)
             {
@@ -301,7 +315,7 @@ namespace ClubItSSCConsole
                 Console.WriteLine("Success");
             }
 
-            Console.WriteLine(wellok.GetCurrentUser());
+            Console.WriteLine(Manager.GetCurrentUser());
             Console.WriteLine("Press Enter To Continue");
             Console.ReadLine();
 

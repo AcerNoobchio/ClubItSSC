@@ -86,10 +86,12 @@ namespace ClubItSSC
             {
                 NLPUtil.RemoveStopWords(Interests[i]);
                 NLPUtil.RemovePrepositions(Interests[i]);
+                NLPUtil.RemoveProfanity(Interests[i]);
                 NLPUtil.Stem(Interests[i]);
             }
         }//end Process()
 
+        #region List Methods
         /// <summary>
         /// Performs a binary search on the Interests list
         /// </summary>
@@ -111,17 +113,17 @@ namespace ClubItSSC
         public void Add(UserInterest InterestIn)
         {
             this.Interests.Add(InterestIn);
-        }
+        }//end Add(UserInterest)
 
         public void Remove(UserInterest InterestIn)
         {
             this.Interests.Remove(InterestIn);
-        }
+        }//end Remove(UserInterest)
 
         public void RemoveAt(int Index)
         {
             this.Interests.RemoveAt(Index);
-        }
+        }//end RemoveAt(int)
 
         public override string ToString()
         {
@@ -133,6 +135,6 @@ namespace ClubItSSC
             }
             return str;
         }//end ToString()
-
+        #endregion
     }//end UserInterests
 }

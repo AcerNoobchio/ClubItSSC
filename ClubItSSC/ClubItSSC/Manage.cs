@@ -9,11 +9,12 @@ namespace ClubItSSC
     /// </summary>
     public class Manage
     {
-        private Member CurrentUser;     //The user that is currently logged in
-        private Members AllUsers;       //The List of all members, should be populated by the database
-        private Clubs SelectedClubs;    //The club that the management system is currently interacting with
-        private Clubs AllClubs;         //The list of All clubs, should be populated by the database
-        private Events MasterCalendar;  //the list of all events, should be populated by the database
+        private Member CurrentUser;             //The user that is currently logged in
+        private Members AllUsers;               //The List of all members, should be populated by the database
+        private Clubs SelectedClubs;            //The club that the management system is currently interacting with
+        private Clubs AllClubs;                 //The list of All clubs, should be populated by the database
+        private Events MasterCalendar;          //the list of all events, should be populated by the database
+        private AllInterests InterestFrequency; //The list of all interests and the frequency at which they occur
 
         #region Constructors
         public Manage()
@@ -23,15 +24,17 @@ namespace ClubItSSC
             AllClubs = new Clubs();         //Maybe replace with reading from the database, Im not sure yet
             AllUsers = new Members();
             MasterCalendar = new Events();
+            InterestFrequency = new AllInterests();
         }//end Manage()
 
-        public Manage(Member CurrentUserIn, Clubs SelectedClubsIn, Clubs AllClubsIn, Members AllUsersIn, Events CalendarIn)
+        public Manage(Member CurrentUserIn, Clubs SelectedClubsIn, Clubs AllClubsIn, Members AllUsersIn, Events CalendarIn, AllInterests FrequencyIn)
         {
             this.CurrentUser = new Member(CurrentUserIn);
             this.SelectedClubs = new Clubs(SelectedClubsIn);
             this.AllClubs = new Clubs(AllClubsIn);
             this.AllUsers = new Members(AllUsersIn);
             this.MasterCalendar = new Events(CalendarIn);
+            this.InterestFrequency = new AllInterests(FrequencyIn);
         }//end Manage(Member, Clubs, Clubs)
 
         public Manage(Manage ManageIn)
@@ -41,6 +44,7 @@ namespace ClubItSSC
             this.AllClubs = new Clubs(ManageIn.AllClubs);
             this.AllUsers = new Members(ManageIn.AllUsers);
             this.MasterCalendar = new Events(ManageIn.MasterCalendar);
+            this.InterestFrequency = new AllInterests(ManageIn.InterestFrequency);
         }//end Manage(Manage)
         #endregion
 
@@ -126,6 +130,11 @@ namespace ClubItSSC
             return this.MasterCalendar;
         }//end GetMasterCalendar()
 
+        public AllInterests GetInterestFrequency()
+        {
+            return this.InterestFrequency;
+        }//end GetInterestFrequency()
+
         #endregion
 
         #region CRUD Student User
@@ -143,6 +152,9 @@ namespace ClubItSSC
             {
                 AllUsers.GetMemberList().Add(new Member(UserIn));
                 AllUsers.SortMembers();     //Keep the list nice and tidy
+
+                this.InterestFrequency.AddInterests(UserIn.GetUserInterests()); //Add the user's interests to the table
+
                 //This might be a good place to update the database
             }
             else
@@ -165,8 +177,13 @@ namespace ClubItSSC
             int iReturnCode = 0;
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
+                this.InterestFrequency.RemoveInterests(AllUsers.GetMemberList()[Index].GetUserInterests()); //Remove the user's old interests
+
                 AllUsers.GetMemberList()[Index] = new Member(UserIn);
                 AllUsers.SortMembers();         //Keep the list nice and tidy
+
+                this.InterestFrequency.AddInterests(UserIn.GetUserInterests()); //Add the user's new interests to the table
+
                 //Might be a good place for a database update
             }
             else
@@ -188,6 +205,8 @@ namespace ClubItSSC
 
             if (CurrentUser.GetUserType().Equals(UserType.SuperAdmin))
             {
+                this.InterestFrequency.RemoveInterests(AllUsers.GetMemberList()[Index].GetUserInterests()); //Remove the user's interests as well
+
                 AllUsers.GetMemberList().RemoveAt(Index);
                 //Sorting is likely not necessary here
                 //Probably want to update the database here
