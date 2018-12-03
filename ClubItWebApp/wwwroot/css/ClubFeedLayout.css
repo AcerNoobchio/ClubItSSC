@@ -1,7 +1,4 @@
-﻿* {
-    box-sizing: border-box;
-}
-
+﻿
 /* Style the header */
 header {
     background-color: #041E42;
@@ -37,7 +34,7 @@ event_detail {
     -ms-flex: 3;
     flex: 3;
     padding: 10px;
-    background-color: #FFFFF;
+    background-color: #FFFFFF;
 }
 
 /* Clear floats after the columns */

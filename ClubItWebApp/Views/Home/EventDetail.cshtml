@@ -1,0 +1,83 @@
+﻿
+<link href="~/css/EventDetailLayout.css" rel="stylesheet" type="text/css" />
+<body>
+    <header>
+        <h2>ClubIt Event Detail</h2>
+    </header>
+    <div class="container">
+        <form action=>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">Event Title</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="etitle" name="title" placeholder="Enter a title">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="subject">Event Description</label>
+                </div>
+                <div class="col-75">
+                    <textarea id="edescription" name="description" placeholder="Add an event description" style="height:200px"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="lname">Club Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="cname" name="club_name" placeholder="Choose a Club">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">Event Date</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="edate" name="event_date" placeholder="Add a date">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">Location</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="elocal" name="location" placeholder="Add a location">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">Event Organizer</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="eorganizer" name="organizer_name" placeholder="Add an organizer name">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">Organizer email</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="eemail" name="organizer_email" placeholder="Add Organizer's email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">Event Status</label>
+                </div>
+                <div class="col-75">
+                    <input type="readonly" id="estatus" name="status" placeholder="Select a status">
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Edit">
+            </div>
+        </form>
+    </div>
+</body>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

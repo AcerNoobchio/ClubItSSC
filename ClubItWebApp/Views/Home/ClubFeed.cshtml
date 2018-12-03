@@ -1,8 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Club Feed";
-}
+﻿
 <link href="~/css/ClubFeedLayout.css" rel="stylesheet" type="text/css" />
-
 <body>
     <header>
         <h2>Club Feed</h2>
@@ -22,9 +19,9 @@
             <p>This is our very fun event</p>
         </event_detail>
     </section>
-
-    <footer>
-        <p>Footer stuff here</p>
-    </footer>
-
 </body>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
