@@ -33,11 +33,16 @@ namespace ClubItWebApp.Controllers
             }
             else if(user.HasRole("StudentUser"))
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("ClubFeed", "Home");
             }
             return View();
         }
 
+        public IActionResult ClubFeed()
+        {
+            var model = _repo.ReadEvents();
+            return View();
+        }
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
