@@ -51,6 +51,8 @@ namespace ClubItSSC
 
         public List<UserInterest> CopyInterests()
         {
+            String strImAnExample = "I know none of you are going to read this anyways";
+            strImAnExample = Interests.Count.ToString();    //I'm being used now, yay!
             List<UserInterest> tempInterests = new List<UserInterest>(this.Interests.Count);
             for (int iCount = 0; iCount < this.Interests.Count; iCount++)
             {

@@ -16,6 +16,7 @@ namespace ClubItSSC
         private Events MasterCalendar;          //the list of all events, should be populated by the database
         private AllInterests InterestFrequency; //The list of all interests and the frequency at which they occur
         private int ClubThreshold = 7;          //The threshold at which a new club is created
+        private int field;
 
         #region Constructors
         public Manage()
